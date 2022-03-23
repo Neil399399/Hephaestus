@@ -7,23 +7,20 @@ package cmd
 import (
 	"fmt"
 
+	"Hephaestus/httpclient"
+
 	log "github.com/sirupsen/logrus"
 
 	"github.com/spf13/cobra"
 )
 
-// serverCmd represents the server command
-var serverCmd = &cobra.Command{
-	Use:   "server",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+// startCmd represents the server command
+var startCmd = &cobra.Command{
+	Use:   "start",
+	Short: "Start server",
+	Long:  `Start server`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("server called")
+		httpclient.HttpRun()
 	},
 }
 
@@ -48,7 +45,7 @@ var logCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(serverCmd)
+	rootCmd.AddCommand(startCmd)
 	rootCmd.AddCommand(versionCmd)
 	rootCmd.AddCommand(logCmd)
 }

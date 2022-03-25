@@ -8,13 +8,14 @@ import (
 )
 
 func HttpRun() {
+	//init
 	router := gin.Default()
 	// root
 	router.GET("healthz", healthz)
 
 	// api route
 	apiv1 := router.Group("/api/v1")
-	apiv1.Use(JWT())
+	// apiv1.Use(JWT())
 	auth(apiv1)
 
 	router.Run(":8090")

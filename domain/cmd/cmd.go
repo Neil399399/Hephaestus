@@ -7,7 +7,7 @@ package cmd
 import (
 	"fmt"
 
-	"Hephaestus/database/postgres"
+	"Hephaestus/database"
 	"Hephaestus/httpclient"
 
 	"github.com/spf13/cobra"
@@ -37,8 +37,8 @@ var dbTestCmd = &cobra.Command{
 	Short: "DB connection test",
 	Long:  `"DB connection test"`,
 	Run: func(cmd *cobra.Command, args []string) {
-		client := postgres.DBClient{}
-		client.Connect()
+		client := database.DBClient{}
+		client.ConnectPostgres()
 	},
 }
 

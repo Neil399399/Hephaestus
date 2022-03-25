@@ -7,3 +7,11 @@ type User struct {
 	Email    string `json:"email"`
 	CreateAt string `json:"create_at"`
 }
+
+func (u *User) GetUser() error {
+	result := db.Where("username = ? AND password = ?", u.Username, u.Password).Table("users").Find(&u)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}

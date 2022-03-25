@@ -1,4 +1,4 @@
-package postgres
+package database
 
 import (
 	"fmt"
@@ -11,10 +11,10 @@ import (
 )
 
 type DBClient struct {
-	client *gorm.DB
+	Client *gorm.DB
 }
 
-func (m *DBClient) Connect() {
+func (m *DBClient) ConnectPostgres() {
 	config := utils.GetDBConfig()
 	client, err := gorm.Open(
 		"postgres",
@@ -30,10 +30,10 @@ func (m *DBClient) Connect() {
 	if err != nil {
 		log.Panic(err)
 	}
-	m.client = client
+	m.Client = client
 	log.Info("connected")
 }
 
 func (m *DBClient) Disconnect() {
-	m.client.Close()
+	m.Client.Close()
 }

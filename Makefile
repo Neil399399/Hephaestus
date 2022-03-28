@@ -27,8 +27,13 @@ adminer:
 	docker-compose -f ./deployment/docker-compose.yaml up -d adminer ; \
 	sleep 2
 
+redis:
+	source ./scripts/.env_local ; \
+	docker-compose -f ./deployment/docker-compose.yaml up -d redis ; \
+	sleep 2
+
 #deploy
-local: postgres adminer migrate;
+local: postgres adminer redis migrate;
 
 local-down:
 	source ./scripts/.env_local ; \

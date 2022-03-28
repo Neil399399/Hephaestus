@@ -15,8 +15,9 @@ const (
 	TOKEN_EXPIRED
 )
 
+var success = Error{code: 200, msg: "ok"}
+
 var errors = map[ErrCode]Error{
-	SUCCESS:        {code: 200, msg: "ok"},
 	ERROR:          {code: 400, msg: "failed"},
 	INVALID_PARAMS: {code: 500, msg: "invalid paramters"},
 	INVALID_TOKEN:  {code: 10001, msg: "invalid token"},

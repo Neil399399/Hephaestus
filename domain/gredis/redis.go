@@ -38,7 +38,7 @@ func init() {
 }
 
 // Set a key/value
-func Set(key string, data interface{}, time time.Duration) error {
+func Set(key string, data interface{}, time int) error {
 	conn := RedisConn.Get()
 	defer conn.Close()
 
@@ -82,7 +82,6 @@ func Get(key string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	return reply, nil
 }
 

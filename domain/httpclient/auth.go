@@ -11,6 +11,12 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+//#TODO: this need to set in config
+var cookie_max_age = 0
+var cookie_domain = "localhost"
+var cookie_secure = false // true: only support https
+var cookie_http_only = false
+
 func auth(r *gin.RouterGroup) {
 	r.POST("/user", getUser)
 }
@@ -37,7 +43,7 @@ func login(c *gin.Context) {
 		})
 		return
 	} else {
-		//#TODO: set jwt token in cookie
+		c.SetCookie("hep_cookie", token, cookie_max_age, "/", cookie_domain, cookie_secure, cookie_http_only)
 		c.JSON(http.StatusOK, Response{
 			Code: success.code,
 			Msg:  success.msg,

@@ -10,6 +10,7 @@ import (
 var TOKEN_EXPIRED_TIME = 30 * time.Minute
 
 type Auth struct {
+	Id       string
 	Username string
 	Password string
 	Token    string
@@ -31,12 +32,13 @@ func (a *Auth) GetToken() error {
 		a.Token = token
 		return nil
 	} else {
-		token, err := utils.GenerateToken(a.Username, a.Password)
+		expiredTime := time.Now().Add(TOKEN_EXPIRED_TIME).Unix()
+		token, err := utils.GenerateToken(a.Id, a.Username, expiredTime)
 		if err != nil {
 			return err
 		}
 		// set in redis
-		err = gredis.Set(a.Username, token, int(TOKEN_EXPIRED_TIME.Minutes()))
+		err = gredis.Set(a.Username, token, expiredTime)
 		if err != nil {
 			return err
 		}

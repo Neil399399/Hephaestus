@@ -1,37 +1,34 @@
 package utils
 
 import (
-	"crypto/md5"
-	"encoding/hex"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
 )
 
-var jwtSecret []byte
+var jwtSecret = "hephaestus"
 
 type Claims struct {
 	Username string `json:"username"`
-	Password string `json:"password"`
 	jwt.StandardClaims
 }
 
 // GenerateToken generate tokens used for auth
-func GenerateToken(username, password string) (string, error) {
-	nowTime := time.Now()
-	expireTime := nowTime.Add(3 * time.Hour)
-
+func GenerateToken(userId, username string, expireTime int64) (string, error) {
+	now := time.Now()
 	claims := Claims{
-		EncodeMD5(username),
-		EncodeMD5(password),
+		username,
 		jwt.StandardClaims{
-			ExpiresAt: expireTime.Unix(),
+			Audience:  userId,
+			ExpiresAt: expireTime,
 			Issuer:    "hephaestus",
+			IssuedAt:  now.Unix(),
+			Subject:   username,
 		},
 	}
 
 	tokenClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	token, err := tokenClaims.SignedString(jwtSecret)
+	token, err := tokenClaims.SignedString([]byte(jwtSecret))
 
 	return token, err
 }
@@ -49,12 +46,4 @@ func ParseToken(token string) (*Claims, error) {
 	}
 
 	return nil, err
-}
-
-// EncodeMD5 md5 encryption
-func EncodeMD5(value string) string {
-	m := md5.New()
-	m.Write([]byte(value))
-
-	return hex.EncodeToString(m.Sum(nil))
 }

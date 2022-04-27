@@ -1,2 +1,0 @@
-# Hephaestus
-ERP System

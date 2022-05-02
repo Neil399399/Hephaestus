@@ -1,8 +1,25 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/globals.css";
+import "semantic-ui-css/semantic.min.css";
+import "../src/utils/i18n";
+import { ThemeProvider } from "styled-components";
+import ProtectRoutes from "../src/router/protectRoutes";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+import type { AppProps } from "next/app";
+
+function MyApp({ Component, pageProps, router }: AppProps) {
+  return (
+    <ThemeProvider theme={theme}>
+      <ProtectRoutes router={router}>
+        <Component {...pageProps} />
+      </ProtectRoutes>
+    </ThemeProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;
+
+const theme = {
+  colors: {
+    primary: "#0070f3",
+  },
+};

@@ -6,39 +6,50 @@ import {
   Message,
   Segment,
 } from "semantic-ui-react";
+import styled from "styled-components";
+import { useTranslation } from "next-i18next";
 
-const LoginForm = () => (
-  <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
-    <Grid.Column style={{ maxWidth: 450 }}>
-      <Header as="h2" color="teal" textAlign="center">
-        Log-in to your account
-      </Header>
-      <Form size="large">
-        <Segment stacked>
-          <Form.Input
-            fluid
-            icon="user"
-            iconPosition="left"
-            placeholder="E-mail address"
-          />
-          <Form.Input
-            fluid
-            icon="lock"
-            iconPosition="left"
-            placeholder="Password"
-            type="password"
-          />
+const LoginForm: React.FC = () => {
+  const { t } = useTranslation();
+  return (
+    <StyledGrid textAlign="center" verticalAlign="middle">
+      <StyledColumn>
+        <Header as="h2" color="black" textAlign="center">
+          {t("login")}
+        </Header>
+        <Form size="large">
+          <Segment stacked>
+            <Form.Input
+              fluid
+              icon="user"
+              iconPosition="left"
+              placeholder={t("email-address")}
+            />
+            <Form.Input
+              fluid
+              icon="lock"
+              iconPosition="left"
+              placeholder={t("password")}
+              type="password"
+            />
 
-          <Button color="teal" fluid size="large">
-            Login
-          </Button>
-        </Segment>
-      </Form>
-      <Message>
-        New to us? <a href="#">Sign Up</a>
-      </Message>
-    </Grid.Column>
-  </Grid>
-);
-
+            <Button color="black" fluid size="large">
+              {t("login")}
+            </Button>
+          </Segment>
+        </Form>
+        <Message>
+          <a href="#">{t("signup")}</a>
+        </Message>
+      </StyledColumn>
+    </StyledGrid>
+  );
+};
 export default LoginForm;
+
+const StyledGrid = styled(Grid)`
+  height: 100vh;
+`;
+const StyledColumn = styled(Grid.Column)`
+  max-width: 500px;
+`;

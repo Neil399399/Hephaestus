@@ -26,20 +26,20 @@ const ProtectRoutes: React.FC<ProtectRoutesProps> = ({ children, router }) => {
   //   router.push(PATH.Login);
   // }
 
-  if (isPublic(router.route)) {
-    return children;
-  }
+  // if (isPublic(router.route)) {
+  //   return children;
+  // }
 
-  // serverside routing is handled differently
-  if (typeof window !== "undefined") {
-    const query = router.asPath === "/" ? null : { redirect: router.asPath };
-    router.push({
-      pathname: "/login",
-      query,
-    });
-  }
+  // // serverside routing is handled differently
+  // if (typeof window !== "undefined") {
+  //   const query = router.asPath === "/" ? null : { redirect: router.asPath };
+  //   router.push({
+  //     pathname: "/login",
+  //     query,
+  //   });
+  // }
 
-  return null;
+  return children;
 };
 export default ProtectRoutes;
 

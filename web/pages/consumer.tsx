@@ -11,8 +11,11 @@ import {
 } from "semantic-ui-react";
 import Layout from "../src/components/layout";
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
+import { PATH } from "../src/utils/path";
 
 interface ConsumerInfo {
+  CID: number;
   Name: string;
   Addr: String;
   Tel: string;
@@ -21,12 +24,22 @@ interface ConsumerInfo {
 
 const Consumer: NextPage = () => {
   const { t } = useTranslation();
+  const router = useRouter();
+
+  function handleOnClick(cid: number) {
+    router.push({
+      pathname: PATH.CONSUMERINFO,
+      query: {
+        cid: cid,
+      },
+    });
+  }
 
   return (
     <div>
       <Layout>
         <Container>
-          <Header>{t("Consumer")}</Header>
+          <Header>{t("consumer")}</Header>
           <Segment>
             <Item.Group>
               <Item>
@@ -36,7 +49,11 @@ const Consumer: NextPage = () => {
                   <Item.Description>{TestConsumer.Tel}</Item.Description>
                   <Item.Extra>
                     <Label>NAS</Label>
-                    <Button priamry floated="right">
+                    <Button
+                      priamry
+                      floated="right"
+                      onClick={() => handleOnClick(TestConsumer.CID)}
+                    >
                       Details
                       <Icon name="right chevron" />
                     </Button>
@@ -55,6 +72,7 @@ const Consumer: NextPage = () => {
 export default Consumer;
 
 const TestConsumer: ConsumerInfo = {
+  CID: 1,
   Name: "Consumer 1",
   Addr: "xx市xx區xx路xx號xF",
   Tel: "123456789",

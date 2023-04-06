@@ -41,7 +41,7 @@ local-down:
 
 #server
 build:
-	cd domain && go build
+	cd domain && go build -o ../bin/
 
 test:
-	cd domain && go run main.go log
+	cd domain && go run main.go

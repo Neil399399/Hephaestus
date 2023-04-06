@@ -5,9 +5,10 @@ import (
 
 	"Hephaestus/utils"
 
-	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
 	log "github.com/sirupsen/logrus"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 type DBClient struct {
@@ -16,24 +17,19 @@ type DBClient struct {
 
 func (m *DBClient) ConnectPostgres() {
 	config := utils.GetDBConfig()
-	client, err := gorm.Open(
-		"postgres",
-		fmt.Sprintf(
-			"host=%s port=%d user=%s dbname=%s password=%s sslmode=disable",
-			config.Host,
-			config.Port,
-			config.User,
-			config.DB,
-			config.Password,
-		),
+	dsn := fmt.Sprintf(
+		"host=%s port=%d user=%s dbname=%s password=%s sslmode=disable",
+		config.Host,
+		config.Port,
+		config.User,
+		config.DB,
+		config.Password,
 	)
+
+	client, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Panic(err)
 	}
 	m.Client = client
 	log.Info("connected")
-}
-
-func (m *DBClient) Disconnect() {
-	m.Client.Close()
 }

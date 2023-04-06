@@ -17,4 +17,8 @@ type Consumer interface {
 	GetConsumerById(id int) (models.Consumer, error)
 	GetConsumerByName(name string) (models.Consumer, error)
 	GetConsumerExtension(id int) (models.ConsumerExtension, error)
+
+	AddNewConsumer(consumer Consumer) error
+	EditConsumer(consumer Consumer) error
+	DeleteConsumer(id int) error
 }

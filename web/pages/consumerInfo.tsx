@@ -127,11 +127,14 @@ const ConsumerInfo: NextPage = () => {
                               <Form.Input
                                 readOnly={readOnly}
                                 label={t("login-password")}
-                                type="password"
+                                type="text"
                                 name="loginPwd"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={v.LoginPwd}
+                                icon={{
+                                  name: "hide",
+                                }}
                               />
                             </Form.Group>
                           ))}

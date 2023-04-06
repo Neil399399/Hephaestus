@@ -2,6 +2,8 @@ import React, { ReactNode } from "react";
 import { useTranslation } from "next-i18next";
 import styled from "styled-components";
 import { Menu } from "semantic-ui-react";
+import { useRouter } from "next/router";
+import { PATH } from "../utils/path";
 
 interface LayoutProps {
   children: ReactNode;
@@ -9,24 +11,19 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { t } = useTranslation();
+  const router = useRouter();
+
   return (
     <StyledLayout>
       <SideBar>
         <StyledMenu inverted pointing vertical>
           <Menu.Item>
-            <Menu.Header>{t("production")}</Menu.Header>
+            <Menu.Header>{t("consumer")}</Menu.Header>
             <Menu.Menu>
-              <Menu.Item name={t("in")} />
-              <Menu.Item name={t("out")} />
-            </Menu.Menu>
-          </Menu.Item>
-
-          <Menu.Item>
-            <Menu.Header>CMS Solutions</Menu.Header>
-            <Menu.Menu>
-              <Menu.Item name="rails" />
-              <Menu.Item name="python" />
-              <Menu.Item name="php" />
+              <Menu.Item
+                name={t("all-consumer")}
+                onClick={() => router.push(PATH.CONSUMER)}
+              />
             </Menu.Menu>
           </Menu.Item>
         </StyledMenu>

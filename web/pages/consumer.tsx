@@ -50,7 +50,7 @@ const Consumer: NextPage = () => {
                   <Item.Extra>
                     <Label>NAS</Label>
                     <Button
-                      priamry
+                      priamry="true"
                       floated="right"
                       onClick={() => handleOnClick(TestConsumer.CID)}
                     >

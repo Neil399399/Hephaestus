@@ -2,11 +2,11 @@
 SHELL := /bin/bash
 AUTH := neil399399
 PROJECT := hephaestus 
-REPO := github.com/${AUTH}/${PROJECT}
+REPO := github.com/$(AUTH)/$(PROJECT)
 ROOT_DIR := $(CURDIR)
-OUTPUT_DIR := ${ROOT_DIR}/bin
+OUTPUT_DIR := $(ROOT_DIR)/bin
 
-DATABASE_URL :=${DATABASE_URL}
+DATABASE_URL :=$(DATABASE_URL)
 
 deps:
 	brew install golang-migrate;

@@ -1,7 +1,12 @@
 package models
 
 import (
+	"encoding/csv"
 	"fmt"
+	"io"
+	"log"
+	"os"
+	"strconv"
 	"testing"
 	"time"
 
@@ -25,16 +30,20 @@ func TestGetDevicesByConsumerId(t *testing.T) {
 }
 
 func TestAddDevice(t *testing.T) {
+
 	d := Device{
 		ID:            1,
 		ConsumerID:    1,
 		User:          "Alice",
 		DeviceID:      "PC-001",
+		Department:    "PM",
 		State:         0,
 		Specification: "",
 		OS:            6,
-		IP:            "111.111.111.111",
-		MACAddr:       "AC-5A-FC-F9-C9-9B",
+		LANIP:         "111.111.111.111",
+		LANMAC:        "AC-5A-FC-F9-C9-9B",
+		WirelessIP:    "111.111.111.111",
+		WirelessMAC:   "AC-5A-FC-F9-C9-9B",
 		CreateAt:      time.Now(),
 	}
 	err := d.AddDevice()
@@ -48,12 +57,15 @@ func TestUpdateDevice(t *testing.T) {
 		ID:            1,
 		ConsumerID:    6,
 		User:          "Bob",
+		Department:    "PM",
 		DeviceID:      "PC-052",
 		State:         2,
 		Specification: "",
 		OS:            10,
-		IP:            "888.11.8.1",
-		MACAddr:       "AC-5A-FC-F9-C9-9B",
+		LANIP:         "8.8.8.8",
+		LANMAC:        "AC-5A-FC-F9-C9-9B",
+		WirelessIP:    "111.111.111.111",
+		WirelessMAC:   "AC-5A-FC-F9-C9-9B",
 		CreateAt:      time.Now(),
 	}
 	err := d.UpdateDevice()
@@ -66,5 +78,57 @@ func TestDeleteDevice(t *testing.T) {
 	err := DelDevice(1)
 	if err != nil {
 		assert.Fail(t, err.Error())
+	}
+}
+
+func TestParse(t *testing.T) {
+	const FilePath = `C:\Users\User\Documents\eample0.csv`
+	file, err := os.OpenFile(FilePath, os.O_RDONLY, 0777)
+	if err != nil {
+		log.Fatalln("找不到CSV檔案路徑:", FilePath, err)
+	}
+
+	// read
+	r := csv.NewReader(file)
+	r.Comma = ','
+	var devs []Device
+	for {
+		id := 0
+		record, err := r.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		var os int
+		if record[5] == "" {
+			os = 15
+		} else {
+			os, err = strconv.Atoi(record[5])
+			if err != nil {
+				log.Fatalln(err)
+			}
+		}
+
+		device := Device{
+			ID:            int64(id),
+			ConsumerID:    1,
+			State:         0,
+			User:          record[0],
+			PCNum:         record[1],
+			Department:    record[2],
+			Specification: record[3],
+			DeviceID:      record[4],
+			OS:            OS(os),
+			LANIP:         record[6],
+			WirelessIP:    record[7],
+			LANMAC:        record[8],
+			WirelessMAC:   record[9],
+			CreateAt:      time.Now(),
+		}
+		devs = append(devs, device)
+		id++
 	}
 }

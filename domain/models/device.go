@@ -22,6 +22,7 @@ const (
 	SERVER2019
 	SERVER2022
 	LINUX
+	UNKNOWN
 )
 
 type Antivirus int
@@ -52,12 +53,16 @@ type Device struct {
 	ID            int64           `gorm:"primary_key" json:"id"`
 	ConsumerID    int64           `json:"consumer"`
 	User          string          `json:"user"`
-	DeviceID      string          `json:"deviceId"`
-	State         state           `json:"state"`
+	PCNum         string          `json:"pc_num"`
+	Department    string          `json:"department"`
 	Specification string          `json:"specification"`
+	DeviceID      string          `json:"deviceId"`
 	OS            OS              `json:"os"`
-	IP            string          `json:"ip"`
-	MACAddr       string          `json:"mac"`
+	LANIP         string          `json:"lan_ip"`
+	WirelessIP    string          `json:"wireless_ip"`
+	LANMAC        string          `json:"lan_mac"`
+	WirelessMAC   string          `json:"wireless_mac"`
+	State         state           `json:"state"`
 	CreateAt      time.Time       `json:"create_at"`
 	Extension     DeviceExtension `json:"ext"`
 }

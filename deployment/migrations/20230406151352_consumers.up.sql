@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS consumers(
    id serial PRIMARY KEY,
    name VARCHAR (50) UNIQUE NOT NULL,
+   taxId VARCHAR (50) UNIQUE NOT NULL,
    addr VARCHAR (300) NOT NULL,
    tel VARCHAR (300) UNIQUE NOT NULL,
-   ip_addr VARCHAR (50) NOT NULL,
-   extension JSONB,
+   contact VARCHAR (50) NOT NULL,
    create_at TIMESTAMPTZ NOT NULL
 );

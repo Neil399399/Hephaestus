@@ -6,13 +6,15 @@ type ConsumerExtension struct {
 }
 
 type Consumer struct {
-	ID       int    `gorm:"primary_key" json:"id"`
-	Name     string `json:"name"`
-	Addr     string `json:"addr"`
-	Tel      string `json:"tel"`
-	IPAddr   string `json:"ip_addr"`
+	ID       int64     `gorm:"primary_key" json:"id"`
+	Name     string    `json:"name"`
+	TaxID    string    `json:"taxId"`
+	Addr     string    `json:"addr"`
+	Tel      string    `json:"tel"`
+	Contact  string    `json:"contract"`
 	CreateAt time.Time `json:"create_at"`
 }
+
 const CONSUMER = "consumers"
 
 func GetConsumers() ([]Consumer, error) {
@@ -41,14 +43,14 @@ func (c *Consumer) GetConsumerByName(name string) error {
 }
 
 func (c *Consumer) GetConsumerByTel(tel string) error {
-	result := db.Table(CONSUMER).Where("tel = ?",tel).Find(&c)
+	result := db.Table(CONSUMER).Where("tel = ?", tel).Find(&c)
 	if result.Error != nil {
 		return result.Error
 	}
 	return nil
 }
 
-func (c *ConsumerExtension) GetConsumerExtension(id int) error {
+func (c *ConsumerExtension) GetConsumerExtension(id int64) error {
 	result := db.Table(CONSUMER).Select("extension").Where("id = ?", id).Find(&c)
 	if result.Error != nil {
 		return result.Error
@@ -56,25 +58,24 @@ func (c *ConsumerExtension) GetConsumerExtension(id int) error {
 	return nil
 }
 
-
-func (c *Consumer) AddNewConsumer(consumer Consumer) error {
-	result := db.Table(CONSUMER).Create(&consumer)
+func (c *Consumer) AddNewConsumer() error {
+	result := db.Table(CONSUMER).Create(&c)
 	if result.Error != nil {
 		return result.Error
 	}
 	return nil
 }
 
-func (c *Consumer) EditConsumer(consumer Consumer) error {
-	result := db.Table(CONSUMER).Save(&consumer)
+func (c *Consumer) EditConsumer() error {
+	result := db.Table(CONSUMER).Save(&c)
 	if result.Error != nil {
 		return result.Error
 	}
 	return nil
 }
 
-func (c *Consumer) DeleteConsumer(id int) error {
-	result := db.Table(CONSUMER).Delete(&Consumer{},id)
+func DeleteConsumer(id int64) error {
+	result := db.Table(CONSUMER).Delete(&Consumer{}, id)
 	if result.Error != nil {
 		return result.Error
 	}

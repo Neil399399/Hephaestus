@@ -19,8 +19,8 @@ type Consumer interface {
 	GetConsumerByName(name string) (models.Consumer, error)
 	GetConsumerExtension(id int) (models.ConsumerExtension, error)
 
-	AddNewConsumer(consumer Consumer) error
-	EditConsumer(consumer Consumer) error
+	AddNewConsumer() error
+	EditConsumer() error
 	DeleteConsumer(id int) error
 }
 
@@ -28,7 +28,7 @@ type Devices interface {
 	GetDevice(id int64) (models.Device, error)
 	GetDevicesByConsumerID(cId int64) ([]models.Device, error)
 
-	AddDevice(models.Device) error
-	UpdateDevice(models.Device) error
+	AddDevice() error
+	UpdateDevice() error
 	DelDevice(id int64) error
 }

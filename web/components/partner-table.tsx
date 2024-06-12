@@ -290,6 +290,7 @@ export default function PartnerTable() {
       // sortDescriptor={sortDescriptor}
       topContent={topContent}
       topContentPlacement="outside"
+      onRowAction={(key) => console.log(`Opening item ${key}...`)}
       // onSelectionChange={setSelectedKeys}
       // onSortChange={setSortDescriptor}
     >

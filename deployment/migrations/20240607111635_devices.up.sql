@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS devices(
    id serial PRIMARY KEY,
    consumer int NOT NULL,
    pc_num VARCHAR (50) NOT NULL,
-   user VARCHAR (50),
+   username VARCHAR (50),
    department VARCHAR (50),
    deviceId VARCHAR (50),
    state int NOT NULL,

@@ -52,7 +52,7 @@ type DeviceExtension struct {
 type Device struct {
 	ID            int64           `gorm:"primary_key" json:"id"`
 	ConsumerID    int64           `json:"consumer"`
-	User          string          `json:"user"`
+	User          string          `json:"username"`
 	PCNum         string          `json:"pc_num"`
 	Department    string          `json:"department"`
 	Specification string          `json:"specification"`

@@ -108,3 +108,12 @@ func DelDevice(id int64) error {
 	}
 	return nil
 }
+
+//for migrate
+func AddDevices(ds []Device) error {
+	result := db.Table(DEVICESTABLE).Create(ds)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}

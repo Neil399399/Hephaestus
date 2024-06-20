@@ -17,7 +17,6 @@ import {
   User,
   Pagination,
   Selection,
-  ChipProps,
   SortDescriptor,
 } from "@nextui-org/react";
 import { PlusIcon } from "./icons/plusIcon";
@@ -25,14 +24,8 @@ import { VerticalDotsIcon } from "./icons/verticalDotsIcon";
 import { ChevronDownIcon } from "./icons/chevronDownIcon";
 import { SearchIcon } from "./icons/searchIcon";
 import { columns, partners, statusOptions } from "../config/data";
-import { capitalize, partnerStatusParser } from "./utils";
+import { capitalize, partnerStatusParser, statusColorMap } from "./utils";
 import { Partner } from "@/types/partner";
-
-const statusColorMap: Record<string, ChipProps["color"]> = {
-  0: "success",
-  1: "danger",
-  2: "warning",
-};
 
 export default function PartnerTable() {
   const [filterValue, setFilterValue] = React.useState("");

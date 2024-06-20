@@ -1,9 +1,9 @@
-import { title } from "@/components/primitives";
+import DevicesTable from "@/components/devices"; 
 
 export default function DevicesPage() {
   return (
     <div>
-      <h1 className={title()}>Devices</h1>
+      <DevicesTable/>
     </div>
   );
 }

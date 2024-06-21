@@ -21,7 +21,6 @@ const deviceColumns = [
   { label: "state", uid: "state" },
 ];
 
-
 const statusOptions = [
   { name: "Active", uid: "active" },
   { name: "Paused", uid: "paused" },
@@ -33,7 +32,6 @@ const deviceStatusOptions = [
   { name: "Inactived", uid: "inactived" },
   { name: "Scrapped", uid: "scrapped" },
 ];
-
 
 const partners = <Partner[]>[
   {
@@ -55,10 +53,10 @@ const devices = <Device[]>[
     deviceId: "AC01",
     state: 0,
     os: 3,
-    lanIP:"192.168.0.100",
-    lanMAC:"A0:B1:C2:D3:E4:F5",
-    wirelessIP:"192.168.100.100",
-    wirelessMAC:"A0:B1:C2:D3:E4:F5",
+    lanIP: "192.168.0.100",
+    lanMAC: "A0:B1:C2:D3:E4:F5",
+    wirelessIP: "192.168.100.100",
+    wirelessMAC: "A0:B1:C2:D3:E4:F5",
     create_at: "20240101",
   },
   {
@@ -68,12 +66,19 @@ const devices = <Device[]>[
     deviceId: "RB02",
     state: 2,
     os: 12,
-    lanIP:"192.168.0.2",
-    lanMAC:"A0:B1:C2:D3:E4:F5",
-    wirelessIP:"192.168.100.5",
-    wirelessMAC:"A0:B1:C2:D3:E4:F5",
+    lanIP: "192.168.0.2",
+    lanMAC: "A0:B1:C2:D3:E4:F5",
+    wirelessIP: "192.168.100.5",
+    wirelessMAC: "A0:B1:C2:D3:E4:F5",
     create_at: "20200101",
   },
-]
+];
 
-export { columns, partners, statusOptions, deviceColumns, devices, deviceStatusOptions };
+export {
+  columns,
+  partners,
+  statusOptions,
+  deviceColumns,
+  devices,
+  deviceStatusOptions,
+};

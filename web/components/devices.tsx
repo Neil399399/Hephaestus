@@ -20,11 +20,20 @@ import {
 import { PlusIcon } from "./icons/plusIcon";
 import { ChevronDownIcon } from "./icons/chevronDownIcon";
 import { SearchIcon } from "./icons/searchIcon";
-import { deviceColumns, devices, deviceStatusOptions } from "../config/data";
-import { capitalize, deviceStatusParser, devicesOSParser, statusColorMap } from "./utils";
+import { deviceColumns, deviceStatusOptions } from "../config/data";
+import {
+  capitalize,
+  deviceStatusParser,
+  devicesOSParser,
+  statusColorMap,
+} from "./utils";
 import { Device } from "@/types/device";
 
-export default function DevicesTable() {
+interface DevicesProps {
+  data: Device[];
+}
+
+export default function DevicesTable(props: DevicesProps) {
   const [filterValue, setFilterValue] = React.useState("");
 
   const [statusFilter, setStatusFilter] = React.useState<Selection>("all");
@@ -33,25 +42,25 @@ export default function DevicesTable() {
   const [page, setPage] = React.useState(1);
   const hasSearchFilter = Boolean(filterValue);
   const filteredItems = React.useMemo(() => {
-    let filtersDevices = [...devices];
+    let filtersDevices = [...props.data];
 
     //search
     if (hasSearchFilter) {
-        filtersDevices = filtersDevices.filter((device) =>
-            device.username.toLowerCase().includes(filterValue.toLowerCase())
+      filtersDevices = filtersDevices.filter((device) =>
+        device.username.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
     if (
       statusFilter !== "all" &&
       Array.from(statusFilter).length !== deviceStatusOptions.length
     ) {
-        filtersDevices = filtersDevices.filter((device) =>
+      filtersDevices = filtersDevices.filter((device) =>
         Array.from(statusFilter).includes(device.state)
       );
     }
 
     return filtersDevices;
-  }, [devices, filterValue, statusFilter]);
+  }, [props.data, filterValue, statusFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -62,7 +71,6 @@ export default function DevicesTable() {
     return filteredItems.slice(start, end);
   }, [page, filteredItems, rowsPerPage]);
 
- 
   const onNextPage = React.useCallback(() => {
     if (page < pages) {
       setPage(page + 1);
@@ -142,7 +150,7 @@ export default function DevicesTable() {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {devices.length} devices
+            Total {props.data.length} devices
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
@@ -163,7 +171,7 @@ export default function DevicesTable() {
     statusFilter,
     onSearchChange,
     onRowsPerPageChange,
-    devices.length,
+    props.data.length,
     hasSearchFilter,
   ]);
 
@@ -179,7 +187,7 @@ export default function DevicesTable() {
         case "deviceId":
           return <>{device.deviceId}</>;
         case "os":
-          return <>{devicesOSParser(device.os)}</>
+          return <>{devicesOSParser(device.os)}</>;
         case "state":
           return (
             <Chip
@@ -193,25 +201,23 @@ export default function DevicesTable() {
           );
         case "lanIP":
           return (
-              <div className="flex flex-col">
-                <p className="text-bold text-small capitalize">
-                  {device.lanIP}
-                </p>
-                <p className="text-bold text-tiny capitalize text-default-500">
-                  {device.lanMAC}
-                </p>
-              </div>
+            <div className="flex flex-col">
+              <p className="text-bold text-small capitalize">{device.lanIP}</p>
+              <p className="text-bold text-tiny capitalize text-default-500">
+                {device.lanMAC}
+              </p>
+            </div>
           );
         case "wirelessIP":
           return (
-              <div className="flex flex-col">
-                <p className="text-bold text-small capitalize">
-                  {device.wirelessIP}
-                </p>
-                <p className="text-bold text-tiny capitalize text-default-500">
-                  {device.wirelessMAC}
-                </p>
-              </div>
+            <div className="flex flex-col">
+              <p className="text-bold text-small capitalize">
+                {device.wirelessIP}
+              </p>
+              <p className="text-bold text-tiny capitalize text-default-500">
+                {device.wirelessMAC}
+              </p>
+            </div>
           );
         case "create_at":
           return <>{device.create_at}</>;
@@ -233,8 +239,8 @@ export default function DevicesTable() {
       <TableHeader columns={deviceColumns}>
         {(column) => <TableColumn key={column.uid}>{column.label}</TableColumn>}
       </TableHeader>
-      <TableBody emptyContent={"No found"} items={devices}>
-      {(item) => (
+      <TableBody emptyContent={"No found"} items={props.data}>
+        {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => (
               <TableCell>{renderCell(item, columnKey)}</TableCell>

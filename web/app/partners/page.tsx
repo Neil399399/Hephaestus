@@ -1,4 +1,4 @@
-import PartnerTable from "@/components/partner-table";
+import PartnerTable from "@/components/partners";
 
 export default function PartnersPage() {
   return (

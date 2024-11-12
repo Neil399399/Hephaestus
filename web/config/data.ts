@@ -1,5 +1,6 @@
 import { Device } from "@/types/device";
 import { Partner } from "@/types/partner";
+import { Software } from "@/types/software";
 
 const columns = [
   { label: "id", uid: "id" },
@@ -17,10 +18,20 @@ const deviceColumns = [
   { label: "os", uid: "os" },
   { label: "lan_ip", uid: "lanIP" },
   { label: "wireless_ip", uid: "wirelessIP" },
-  { label: "create_at", uid: "create_at" },
+  { label: "creatde_at", uid: "created_at" },
   { label: "state", uid: "state" },
 ];
 
+const softwareColumns = [
+  { label: "serial", uid: "serial" },
+  { label: "username", uid: "username" },
+  { label: "department", uid: "department" },
+  { label: "deviceId", uid: "deviceId" },
+  { label: "os", uid: "os" },
+  { label: "created_at", uid: "created_at" },
+  { label: "expired_at", uid: "expired_at" },
+  { label: "state", uid: "state" },
+];
 const statusOptions = [
   { name: "Active", uid: "active" },
   { name: "Paused", uid: "paused" },
@@ -57,7 +68,7 @@ const devices = <Device[]>[
     lanMAC: "A0:B1:C2:D3:E4:F5",
     wirelessIP: "192.168.100.100",
     wirelessMAC: "A0:B1:C2:D3:E4:F5",
-    create_at: "20240101",
+    created_at: "20240101",
   },
   {
     id: 2,
@@ -70,7 +81,32 @@ const devices = <Device[]>[
     lanMAC: "A0:B1:C2:D3:E4:F5",
     wirelessIP: "192.168.100.5",
     wirelessMAC: "A0:B1:C2:D3:E4:F5",
-    create_at: "20200101",
+    created_at: "20200101",
+  },
+];
+
+const softwares = <Software[]>[
+  {
+    id: 1,
+    serial: "XKMQ-0013-6245-5316-7453",
+    username: "alice",
+    department: "Accounting",
+    deviceId: "AC01",
+    state: 0,
+    os: 3,
+    created_at: "20240101",
+    expired_at: "20240130",
+  },
+  {
+    id: 2,
+    serial: "XKMQ-0013-6245-5316-7453",
+    username: "bob",
+    department: "R&B",
+    deviceId: "RB02",
+    state: 2,
+    os: 12,
+    created_at: "20200101",
+    expired_at: "20240130",
   },
 ];
 
@@ -80,5 +116,7 @@ export {
   statusOptions,
   deviceColumns,
   devices,
+  softwares,
+  softwareColumns,
   deviceStatusOptions,
 };

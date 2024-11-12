@@ -17,6 +17,10 @@ export const siteConfig = {
       href: "/devices",
     },
     {
+      label: "Softwares",
+      href: "/softwares",
+    },
+    {
       label: "About",
       href: "/about",
     },

@@ -20,20 +20,20 @@ import {
 import { PlusIcon } from "./icons/plusIcon";
 import { ChevronDownIcon } from "./icons/chevronDownIcon";
 import { SearchIcon } from "./icons/searchIcon";
-import { deviceColumns, deviceStatusOptions } from "../config/data";
+import { softwareColumns, deviceStatusOptions } from "../config/data";
 import {
   capitalize,
   deviceStatusParser,
   devicesOSParser,
   statusColorMap,
 } from "./utils";
-import { Device } from "@/types/device";
+import { Software } from "@/types/software";
 
-interface DevicesProps {
-  data: Device[];
+interface SoftwaresProps {
+  data: Software[];
 }
 
-export default function DevicesTable(props: DevicesProps) {
+export default function SoftwaresTable(props: SoftwaresProps) {
   const [filterValue, setFilterValue] = React.useState("");
 
   const [statusFilter, setStatusFilter] = React.useState<Selection>("all");
@@ -176,51 +176,33 @@ export default function DevicesTable(props: DevicesProps) {
   ]);
 
   const renderCell = React.useCallback(
-    (device: Device, columnKey: React.Key) => {
+    (software: Software, columnKey: React.Key) => {
       switch (columnKey) {
-        case "id":
-          return <>{device.id}</>;
+        case "serial":
+          return <>{software.serial}</>;
         case "username":
-          return <>{device.username}</>;
+          return <>{software.username}</>;
         case "department":
-          return <>{device.department}</>;
+          return <>{software.department}</>;
         case "deviceId":
-          return <>{device.deviceId}</>;
+          return <>{software.deviceId}</>;
         case "os":
-          return <>{devicesOSParser(device.os)}</>;
+          return <>{devicesOSParser(software.os)}</>;
         case "state":
           return (
             <Chip
               className="capitalize border-none gap-1 text-default-600"
-              color={statusColorMap[device.state]}
+              color={statusColorMap[software.state]}
               size="sm"
               variant="dot"
             >
-              {deviceStatusParser(device.state)}
+              {deviceStatusParser(software.state)}
             </Chip>
           );
-        case "lanIP":
-          return (
-            <div className="flex flex-col">
-              <p className="text-bold text-small capitalize">{device.lanIP}</p>
-              <p className="text-bold text-tiny capitalize text-default-500">
-                {device.lanMAC}
-              </p>
-            </div>
-          );
-        case "wirelessIP":
-          return (
-            <div className="flex flex-col">
-              <p className="text-bold text-small capitalize">
-                {device.wirelessIP}
-              </p>
-              <p className="text-bold text-tiny capitalize text-default-500">
-                {device.wirelessMAC}
-              </p>
-            </div>
-          );
-        case "create_at":
-          return <>{device.created_at}</>;
+        case "created_at":
+          return <>{software.created_at}</>;
+        case "expired_at":
+          return <>{software.expired_at}</>;
         default:
           return;
       }
@@ -236,7 +218,7 @@ export default function DevicesTable(props: DevicesProps) {
       topContentPlacement="outside"
       onRowAction={(key) => console.log(`Opening item ${key}...`)}
     >
-      <TableHeader columns={deviceColumns}>
+      <TableHeader columns={softwareColumns}>
         {(column) => <TableColumn key={column.uid}>{column.label}</TableColumn>}
       </TableHeader>
       <TableBody emptyContent={"No found"} items={props.data}>

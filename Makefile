@@ -16,20 +16,20 @@ migrate:
 	source ./scripts/.env_local ; \
 	migrate -verbose -source file://${ROOT_DIR}/deployment/migrations -database ${DATABASE_URL} up;
 
-#docker
+#podman
 postgres:
 	source ./scripts/.env_local ; \
-	docker-compose -f ./deployment/docker-compose.yaml up -d postgres ; \
+	podman-compose -f ./deployment/podman-compose.yaml up -d postgres ; \
 	sleep 2
 
 adminer:
 	source ./scripts/.env_local ; \
-	docker-compose -f ./deployment/docker-compose.yaml up -d adminer ; \
+	podman-compose -f ./deployment/podman-compose.yaml up -d adminer ; \
 	sleep 2
 
 redis:
 	source ./scripts/.env_local ; \
-	docker-compose -f ./deployment/docker-compose.yaml up -d redis ; \
+	podman-compose -f ./deployment/podman-compose.yaml up -d redis ; \
 	sleep 2
 
 #deploy
@@ -37,7 +37,7 @@ local: postgres adminer redis migrate;
 
 local-down:
 	source ./scripts/.env_local ; \
-	docker-compose -f ./deployment/docker-compose.yaml down;
+	podman-compose -f ./deployment/podman-compose.yaml down;
 
 #server
 build:

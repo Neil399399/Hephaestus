@@ -15,3 +15,11 @@ func (u *User) GetUser() error {
 	}
 	return nil
 }
+
+func (u *User) AddUser(user User) error {
+	result := db.Table("users").Create(&user)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
